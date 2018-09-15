@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Eamil</th>
+      <th>Edit</th>
+      <th>Impersonate</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+    <tr>
+      <td>{{ user.username|e }}</td>
+      <td>{{ user.email|e }}</td>
+      <td><a href="{{ path('dashboard', {'id': user.id}) }}" class="button is-primary">Edit</td></td>
+      <td><a href="{{ path('dashboard', {'_switch_user': user.username}) }}" class="button is-primary">Impersonate this user</td></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

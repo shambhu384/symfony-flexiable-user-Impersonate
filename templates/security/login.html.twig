@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="columns">
+  <div class="column is-three-fifths">
+    <div class="content">
+        <h1>Symfony Impersonate a User</h1>
+        <p>Sometimes, it's useful to be able to switch from one user to another without having to log out and log in again (for instance when you are debugging or trying to understand a bug a user sees that you can't reproduce).</p>
+        <p> Login credentials </p>
+        <ul>
+            <li>admin/admin</li>
+            <li>demo/demo</li>
+        </ul>
+    </div>
+  </div>
+  <div class="column">
+        {% if error %}
+            <div class="notification is-danger">
+              <button class="delete"></button>
+              <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            </div>
+        {% endif %}
+
+        <form action="{{ path('login') }}" method="post">
+            <div class="field">
+              <label class="label">Username</label>
+              <div class="control">
+                <input type="text" id="username" class="input" name="_username" value="{{ last_username }}" placeholder="Username" autocomplete="off"/>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Password</label>
+              <div class="control">
+                <input type="password" id="password" class="input" name="_password" placeholder="Password" autocomplete="off"/>
+              </div>
+            </div>
+
+
+            <input type="hidden" name="_csrf_token"
+                value="{{ csrf_token('authenticate') }}"
+            >
+            {#
+                If you want to control the URL the user
+                is redirected to on success (more details below)
+                <input type="hidden" name="_target_path" value="/account" />
+            #}
+            <button type="submit" class="button is-primary">login</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
